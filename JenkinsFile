@@ -64,7 +64,7 @@ def sendEmail(to, subject, body) {
     // Configurar el mensaje
     def message = "sddsdsd"
     Subject: ${subject} 
-    \nsdsfsdfdsfsdfsdfsdfsd\n sdhfoihsaoinfionsdkjnfos
+    \n\n 
     ${body}
     "sdsdsdsdsdsdsd"sdsdfsdfsdfsd
 
