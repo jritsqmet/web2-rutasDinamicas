@@ -43,13 +43,13 @@ pipeline {
             echo 'Pipeline ejecutado exitosamente. ¡Construcción y copia de archivos exitosas!'
             
             
-            sendEmail("tucorreo@example.com", "Pipeline Exitoso", "El pipeline se ejecutó exitosamente.")
+            sendEmail("syonnet@gmail.com", "Pipeline Exitoso", "El pipeline se ejecutó exitosamente.")
         }
         failure {
             echo 'El pipeline ha fallado. Revisar los registros para más detalles.'
             
             
-            sendEmail("tucorreo@example.com", "Error en el Pipeline", "El pipeline ha fallado. Revisar los registros para más detalles.")
+            sendEmail("syonnet@gmail.com", "Error en el Pipeline", "El pipeline ha fallado. Revisar los registros para más detalles.")
         }
     }
 }
