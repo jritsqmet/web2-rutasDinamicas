@@ -27,6 +27,9 @@ pipeline {
                     if (robocopyExitCode > 3) {
                         echo 'Error en la copia de archivos usando Robocopy.'
                         currentBuild.result = 'FAILURE'
+                        
+                        
+                        sendEmail("tucorreo@example.com", "Error en el Pipeline", "El pipeline ha fallado. Revisar los registros para más detalles.")
                     } else {
                         echo 'Copia de archivos exitosa.'
                     }
@@ -37,10 +40,34 @@ pipeline {
 
     post {
         success {
-            echo 'Pipeline ejecutado exitosamente. ¡Construccion y copia de archivos exitosas!'
+            echo 'Pipeline ejecutado exitosamente. ¡Construcción y copia de archivos exitosas!'
+            
+            
+            sendEmail("tucorreo@example.com", "Pipeline Exitoso", "El pipeline se ejecutó exitosamente.")
         }
         failure {
             echo 'El pipeline ha fallado. Revisar los registros para más detalles.'
+            
+            
+            sendEmail("tucorreo@example.com", "Error en el Pipeline", "El pipeline ha fallado. Revisar los registros para más detalles.")
         }
     }
+}
+
+def sendEmail(to, subject, body) {
+    // Configuración del servidor SMTP y credenciales
+    def server = 'smtp.gmail.com'
+    def port = 465
+    def username = 'syonnet2@gmail.com'
+    def password = 'crik rjru halz hrgc'
+
+    // Configurar el mensaje
+    def message = "sddsdsd"
+    Subject: ${subject} 
+    \nsdsfsdfdsfsdfsdfsdfsd\n sdhfoihsaoinfionsdkjnfos
+    ${body}
+    "sdsdsdsdsdsdsd"sdsdfsdfsdfsd
+
+    // Enviar el correo electrónico
+    bat "python -c \"import smtplib; server = smtplib.SMTP('${server}', ${port}); server.starttls(); server.login('${username}', '${password}'); server.sendmail('${username}', ['${to}'], '''${message}'''); server.quit()\""
 }
