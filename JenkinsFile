@@ -20,11 +20,11 @@ pipeline {
             }
         }
 
-        stage('Copiar archivos a C:\\ACT_VO') {
+        stage('Copiar archivos a C:\\ACT_VOPP') {
             steps {
                 script {
                     
-                    bat 'robocopy dist/ C:\\ACT_VO /E'
+                    bat 'robocopy dist/ C:\\ACT_VOPP /E'
 
                     
                     def robocopyExitCode = bat(script: 'echo %ERRORLEVEL%', returnStatus: true)
