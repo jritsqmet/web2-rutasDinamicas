@@ -61,12 +61,11 @@ def sendEmail(to, subject, body) {
     def username = 'syonnet2@gmail.com'
     def password = 'crik rjru halz hrgc'
 
-    // Configurar el mensaje
-    def message = "sddsdsd"
-    Subject: ${subject} 
-    \n\n 
+   def message = """
+    Subject: ${subject}
+    \n\n
     ${body}
-    "sdsdsdsdsdsdsd"sdsdfsdfsdfsd
+    """
 
     // Enviar el correo electrónico
     bat "python -c \"import smtplib; server = smtplib.SMTP('${server}', ${port}); server.starttls(); server.login('${username}', '${password}'); server.sendmail('${username}', ['${to}'], '''${message}'''); server.quit()\""
