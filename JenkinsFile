@@ -59,7 +59,7 @@ def sendEmail(to, subject, body) {
     def server = 'smtp.gmail.com'
     def port = 465
     def username = 'syonnet2@gmail.com'
-    def password = 'crik rjru halz hrgc'
+    def password = 'victor1981'
 
    def message = """
     Subject: ${subject}
