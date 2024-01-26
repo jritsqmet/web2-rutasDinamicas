@@ -37,7 +37,7 @@ pipeline {
 
     post {
         success {
-            echo 'Pipeline ejecutado exitosamente. ¡Construcción y copia de archivos exitosas!'
+            echo 'Pipeline ejecutado exitosamente. ¡Construccion y copia de archivos exitosas!'
         }
         failure {
             echo 'El pipeline ha fallado. Revisar los registros para más detalles.'
