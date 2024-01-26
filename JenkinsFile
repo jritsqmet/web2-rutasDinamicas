@@ -16,20 +16,20 @@ pipeline {
 
         stage('Copia de Archivos') {
             steps {
-                bat 'robocopy dist/ C:\\ACT_VOPP /E'
-                
-                
-                def robocopyExitCode = bat(script: 'echo %ERRORLEVEL%', returnStatus: true)
+                script {
+                    
+                    def robocopyExitCode = bat(script: 'robocopy dist/ C:\\ACT_VOPP /E ^& exit %ERRORLEVEL%', returnStatus: true)
 
-                
-                echo "robocopy exit code: ${robocopyExitCode}"
+                    
+                    echo "robocopy exit code: ${robocopyExitCode}"
 
-                
-                if (robocopyExitCode > 3) {
-                    echo 'Error en la copia de archivos usando Robocopy.'
-                    currentBuild.result = 'FAILURE'
-                } else {
-                    echo 'Copia de archivos exitosa.'
+                    
+                    if (robocopyExitCode > 3) {
+                        echo 'Error en la copia de archivos usando Robocopy.'
+                        currentBuild.result = 'FAILURE'
+                    } else {
+                        echo 'Copia de archivos exitosa.'
+                    }
                 }
             }
         }
