@@ -4,40 +4,32 @@ pipeline {
     stages {
         stage('Instalar Dependencias') {
             steps {
-                script {
-                    
-                     'npm install'
-                }
+                bat 'npm install'
             }
         }
 
         stage('Construir') {
             steps {
-                script {
-                    
-                     'npm run ng build'
-                }
+                bat 'npm run ng build'
             }
         }
 
-        stage('Copiar archivos a C:\\ACT_VOPP') {
+        stage('Copia de Archivos') {
             steps {
-                script {
-                    
-                    bat 'robocopy dist/ C:\\ACT_VOPP /E'
+                bat 'robocopy dist/ C:\\ACT_VOPP /E'
+                
+                
+                def robocopyExitCode = bat(script: 'echo %ERRORLEVEL%', returnStatus: true)
 
-                    
-                    def robocopyExitCode = bat(script: 'echo %ERRORLEVEL%', returnStatus: true)
+                
+                echo "robocopy exit code: ${robocopyExitCode}"
 
-                    
-                    echo "robocopy exit code: ${robocopyExitCode}"
-
-                    
-                    if (robocopyExitCode > 3) {
-                        error 'Error en robocopy'
-                    } else {
-                        echo 'robocopy ejecutado con éxito'
-                    }
+                
+                if (robocopyExitCode > 3) {
+                    echo 'Error en la copia de archivos usando Robocopy.'
+                    currentBuild.result = 'FAILURE'
+                } else {
+                    echo 'Copia de archivos exitosa.'
                 }
             }
         }
@@ -45,11 +37,9 @@ pipeline {
 
     post {
         success {
-            
             echo 'Pipeline ejecutado exitosamente. ¡Construcción y copia de archivos exitosas!'
         }
         failure {
-            
             echo 'El pipeline ha fallado. Revisar los registros para más detalles.'
         }
     }
