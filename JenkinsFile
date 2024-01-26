@@ -1,0 +1,34 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Instalar Dependencias') {
+            steps {
+               
+                script {
+                    sh 'npm install'
+                }
+            }
+        }
+
+        stage('Construir') {
+            steps {
+                
+                script {
+                    sh 'npm run ng build'
+                }
+            }
+        }
+    }
+
+    post {
+        success {
+            
+            echo 'Pipeline ejecutado exitosamente. ¡Construcción exitosa!'
+        }
+        failure {
+            
+            echo 'El pipeline ha fallado. Revisar los registros para más detalles.'
+        }
+    }
+}
