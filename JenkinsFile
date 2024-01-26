@@ -4,8 +4,8 @@ pipeline {
     stages {
         stage('Instalar Dependencias') {
             steps {
-                
                 script {
+                    
                      'npm install'
                 }
             }
@@ -13,9 +13,31 @@ pipeline {
 
         stage('Construir') {
             steps {
-                
                 script {
-                     'npm run build'
+                    
+                     'npm run ng build'
+                }
+            }
+        }
+
+        stage('Copiar archivos a C:\\ACT_VO') {
+            steps {
+                script {
+                    
+                    bat 'robocopy dist/ C:\\ACT_VO /E'
+
+                    
+                    def robocopyExitCode = bat(script: 'echo %ERRORLEVEL%', returnStatus: true)
+
+                    
+                    echo "robocopy exit code: ${robocopyExitCode}"
+
+                    
+                    if (robocopyExitCode > 3) {
+                        error 'Error en robocopy'
+                    } else {
+                        echo 'robocopy ejecutado con éxito'
+                    }
                 }
             }
         }
@@ -24,7 +46,7 @@ pipeline {
     post {
         success {
             
-            echo 'Pipeline ejecutado exitosamente. ¡Construcción exitosa!'
+            echo 'Pipeline ejecutado exitosamente. ¡Construcción y copia de archivos exitosas!'
         }
         failure {
             
@@ -32,4 +54,3 @@ pipeline {
         }
     }
 }
-
