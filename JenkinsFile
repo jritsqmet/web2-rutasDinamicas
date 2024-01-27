@@ -54,20 +54,29 @@ pipeline {
     }
 }
 
-def sendEmail(to, subject, body) {
+void sendEmail(String to, String subject, String body) {
    
-    def server = 'smtp.gmail.com'
-    def port = 587
+    def smtpServer = 'smtp.gmail.com'
+    def smtpPort = 587
     def username = 'syonnet2@gmail.com'
     def password = 'jysl zcfj bykp npvg'
 
    
-    def message = '''
+    def message = \"\"\"
     Subject: ${subject}
-    \n hola \n
+    
     ${body}
-    '''
+  \"\"\"
 
     
-    bat "python -c \"import smtplib; server = smtplib.SMTP('${server}', ${port}); server.starttls(); server.login('${username}', '${password}'); server.sendmail('${username}', ['${to}'], '''${message}'''); server.quit()\""
+    try {
+    bat "python -c \"import smtplib; 
+      server = smtplib.SMTP('${smtpServer}', ${smtpPort});
+      server.starttls();
+      server.login('${username}', '${password}');
+      server.sendmail('${username}', ['${to}'], '''${message}'''); 
+      server.quit()\""
+  } catch (Exception e) {
+    echo "Error enviando correo: ${e}"
+  }
 }
