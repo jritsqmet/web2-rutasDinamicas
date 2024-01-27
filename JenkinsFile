@@ -60,13 +60,14 @@ void sendEmail(String to, String subject, String body) {
     def smtpPort = 587
     def username = 'syonnet2@gmail.com'
     def password = 'jysl zcfj bykp npvg'
+    def emailSubject = "Sujeto"
+    def emailBody = "Cuerpo"
 
    
-    def message = \"\"\"
+    def message = """
     Subject: ${subject}
-    
     ${body}
-  \"\"\"
+    """
 
     
     try {
@@ -80,3 +81,8 @@ void sendEmail(String to, String subject, String body) {
     echo "Error enviando correo: ${e}"
   }
 }
+sendEmail(
+  to: 'destinatario1@yopmail.com',
+  subject: 'Subject',
+  body: 'Body' 
+)
