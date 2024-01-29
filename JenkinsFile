@@ -17,22 +17,27 @@ pipeline {
         stage('Copia de Archivos') {
             steps {
                 script {
-
                     def robocopyExitCode = bat(script: 'robocopy dist/ C:\\ACT_VOPP /E ^& exit %ERRORLEVEL%', returnStatus: true)
 
-                    
                     echo "robocopy exit code: ${robocopyExitCode}"
 
-                    
                     if (robocopyExitCode > 3) {
                         echo 'Error en la copia de archivos usando Robocopy.'
                         currentBuild.result = 'FAILURE'
-                        
-                      
-                        sendEmail("destinatario1@yopmail.com", "Error en el Pipeline", "El pipeline ha fallado. Revisar los registros para mas detalles.")
                     } else {
                         echo 'Copia de archivos exitosa.'
                     }
+                }
+            }
+        }
+
+        stage('Enviar Correo desde Script Python') {
+            steps {
+                script {
+                    def pythonScript = 'PythonMail.py'
+
+                    
+                    bat "python ${pythonScript}"
                 }
             }
         }
@@ -41,38 +46,9 @@ pipeline {
     post {
         success {
             echo 'Pipeline ejecutado exitosamente. ¡Construcción y copia de archivos exitosas!'
-            
-           
-            sendEmail("destinatario1@yopmail.com", "Pipeline Exitoso", "El pipeline se ejecutó exitosamente.")
         }
         failure {
-            echo 'El pipeline ha fallado. Revisar los registros para más detalles.'
-            
-           
-            sendEmail("destinatario1@yopmail.com", "Error en el Pipeline", "El pipeline ha fallado. Revisar los registros para más detalles.")
+            echo 'El pipeline ha fallado. Revisar los registros para mas detalles.'
         }
-    }
-}
-
-void sendEmail(String to, String subject, String body) {
-    def smtpServer = 'smtp.gmail.com'
-    def smtpPort = 587
-    def username = 'syonnet2@gmail.com'
-    def password = 'jysl zcfj bykp npvg'
-
-    def message = """
-Subject: ${subject}
-${body}
-"""
-
-    try {
-        bat """python -c "import smtplib; 
-        server = smtplib.SMTP('${smtpServer}', ${smtpPort});
-        server.starttls();
-        server.login('${username}', '${password}');
-        server.sendmail('${username}', ['${to}'], '''${message}'''); 
-        server.quit()" """
-    } catch (Exception e) {
-        echo "Error enviando correo: ${e}"
     }
 }
