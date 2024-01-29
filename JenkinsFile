@@ -17,7 +17,8 @@ pipeline {
         stage('Copia de Archivos') {
             steps {
                 script {
-                    def robocopyExitCode = bat(script: 'robocopy dist\\ C:\\ACT_VOPP /MIR ^& exit %ERRORLEVEL%', returnStatus: true)
+                    def robocopyExitCode = bat(script: 'robocopy dist/ C:\\ACT_VOPP /E ^& exit %ERRORLEVEL%', returnStatus: true)
+
                     echo "robocopy exit code: ${robocopyExitCode}"
 
                     if (robocopyExitCode > 3) {
@@ -32,7 +33,11 @@ pipeline {
 
         stage('Enviar Correo desde Script Python') {
             steps {
-              bat  'PythonMail.py'
+                script {
+                    bat '''
+                        set PATH=C:\\ProgramData\\Jenkins\\.jenkins\\workspace\\ACT_VO_PP PythonMail.py
+                    '''
+                }
             }
         }
     }
