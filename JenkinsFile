@@ -33,12 +33,11 @@ pipeline {
 
         stage('Enviar Correo desde Script Python') {
             steps {
-                script {
-                    def pythonScript = 'PythonMail.py'
+                
 
                     
-                    bat "python ${pythonScript}"
-                }
+                    bat 'python PythonMail.py'
+                
             }
         }
     }
