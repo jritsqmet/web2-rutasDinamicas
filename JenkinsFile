@@ -18,7 +18,7 @@ pipeline {
             steps {
                 script {
 
-                    def robocopyExitCode = bat(script: 'robocopy dist/ C:\\ACT_VOPP /E ^& exit %ERRORLEVEL%', returnStatus: true)
+                    def robocopyExitCode = bat(script: 'robocopy dist/ C:\\ACT_VOPP_1 /E ^& exit %ERRORLEVEL%', returnStatus: true)
 
                     
                     echo "robocopy exit code: ${robocopyExitCode}"
