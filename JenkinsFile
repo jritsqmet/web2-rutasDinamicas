@@ -4,13 +4,13 @@ pipeline {
     stages {
         stage('Instalar Dependencias') {
             steps {
-                'npm install'
+                bat 'npm install'
             }
         }
 
         stage('Construir') {
             steps {
-                'npm run ng build'
+                bat 'npm run ng build'
             }
         }
 
@@ -32,7 +32,7 @@ pipeline {
 
         stage('Enviar Correo desde Script Python') {
             steps {
-                'python PythonMail.py'
+              bat  'python PythonMail.py'
             }
         }
     }
