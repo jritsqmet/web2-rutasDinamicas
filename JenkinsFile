@@ -32,7 +32,7 @@ pipeline {
 
         stage('Enviar Correo desde Script Python') {
             steps {
-              bat  'python PythonMail.py'
+              bat  'PythonMail.py'
             }
         }
     }
