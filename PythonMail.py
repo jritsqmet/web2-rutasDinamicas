@@ -9,7 +9,7 @@ smtp_password = 'jysl zcfj bykp npvg'
 
 # Contenido del email
 email_from = smtp_user
-email_to = ['destinatario1@yopmail.com', 'destinatario2@yopmail.com']
+email_to = ['destinatario1@yopmail.com', 'syonnet@gmail.com']
 email_subject = 'Correo de prueba desde Jenkins'
 email_body = 'Este es un correo de prueba enviado desde un script Python en Jenkins'
 
