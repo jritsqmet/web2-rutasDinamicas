@@ -35,8 +35,7 @@ pipeline {
             steps {
                 script {
                     bat '''
-                        set PATH=C:\\ProgramData\\Jenkins\\.jenkins\\workspace\\ACT_VO_PP;%PATH%
-                        python PythonMail.py
+                        set PATH=C:\\ProgramData\\Jenkins\\.jenkins\\workspace\\ACT_VO_PP PythonMail.py
                     '''
                 }
             }
