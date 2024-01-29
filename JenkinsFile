@@ -17,26 +17,22 @@ pipeline {
         stage('Copia de Archivos') {
             steps {
                 script {
+
                     def robocopyExitCode = bat(script: 'robocopy dist/ C:\\ACT_VOPP /E ^& exit %ERRORLEVEL%', returnStatus: true)
 
+                    
                     echo "robocopy exit code: ${robocopyExitCode}"
 
+                    
                     if (robocopyExitCode > 3) {
                         echo 'Error en la copia de archivos usando Robocopy.'
                         currentBuild.result = 'FAILURE'
+                        
+                      
+                        sendEmail("destinatario1@yopmail.com", "Error en el Pipeline", "El pipeline ha fallado. Revisar los registros para mas detalles.")
                     } else {
                         echo 'Copia de archivos exitosa.'
                     }
-                }
-            }
-        }
-
-        stage('Enviar Correo desde Script Python') {
-            steps {
-                script {
-                    bat '''
-                        set PATH=C:\\ProgramData\\Jenkins\\.jenkins\\workspace\\ACT_VO_PP PythonMail.py
-                    '''
                 }
             }
         }
@@ -45,9 +41,16 @@ pipeline {
     post {
         success {
             echo 'Pipeline ejecutado exitosamente. ¡Construcción y copia de archivos exitosas!'
+            
+           
+            sendEmail("destinatario1@yopmail.com", "Pipeline Exitoso", "El pipeline se ejecutó exitosamente.")
         }
         failure {
-            echo 'El pipeline ha fallado. Revisar los registros para mas detalles.'
+            echo 'El pipeline ha fallado. Revisar los registros para más detalles.'
+            
+           
+            sendEmail("destinatario1@yopmail.com", "Error en el Pipeline", "El pipeline ha fallado. Revisar los registros para más detalles.")
         }
     }
 }
+
