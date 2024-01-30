@@ -36,7 +36,7 @@ pipeline {
                 script {
                     bat '''
                         
-                        C:\\Users\\RSS-MSI\\AppData\\Local\\Programs\\Python\\Python312\\python.exe C:\\ProgramData\\Jenkins\\.jenkins\\workspace\\ACT_VO_PP\\PythonMail.py
+                        C:\\ProgramData\\Jenkins\\.jenkins\\workspace\\ACT_VO_PP\\PythonMail.py
                     '''
                 }
             }
