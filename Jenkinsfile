@@ -13,7 +13,7 @@ node {
 
     //BORRAR EL CONTENIDO DE LA CARPETA
     stage('Limpiar carpeta'){
-        bat 'del /Q /S C:\\ProgramData\\Jenkins\\.jenkins\\workspace\\angular-pipeline\\dist\\app-fire C:\\servidor\\angular'
+        bat 'del /Q /S C:\\servidor\\angular'
     }
 
     stage('Mover al servidor'){
