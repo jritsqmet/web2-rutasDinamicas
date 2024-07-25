@@ -4,10 +4,10 @@ node {
     }
 
     stage( 'Instalación de dependencias' ){
-        bat 'npm install' 
+        bat 'npm installo' 
     }
 
     stage('Contruir Aplicacion'){
-        bat( 'ng- build' )
+        bat( 'ng build' )
     }
 }
