@@ -8,6 +8,6 @@ node {
     }
 
     stage('Contruir Aplicacion'){
-        bat( 'ng build' )
+        bat( 'ng- build' )
     }
 }
