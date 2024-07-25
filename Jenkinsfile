@@ -4,7 +4,7 @@ node {
     }
 
     stage( 'Instalación de dependencias' ){
-        bat 'npm installo' 
+        bat 'npm install' 
     }
 
     stage('Contruir Aplicacion'){
