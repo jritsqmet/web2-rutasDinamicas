@@ -1,0 +1,54 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Instalar Dependencias') {
+            steps {
+                bat 'npm install'
+            }
+        }
+
+        stage('Construir') {
+            steps {
+                bat 'npm run ng build'
+            }
+        }
+
+        stage('Copia de Archivos') {
+            steps {
+                script {
+                    def robocopyExitCode = bat(script: 'robocopy dist/ C:\\ACT_VOPP /E ^& exit %ERRORLEVEL%', returnStatus: true)
+
+                    echo "robocopy exit code: ${robocopyExitCode}"
+
+                    if (robocopyExitCode > 3) {
+                        echo 'Error en la copia de archivos usando Robocopy.'
+                        currentBuild.result = 'FAILURE'
+                    } else {
+                        echo 'Copia de archivos exitosa.'
+                    }
+                }
+            }
+        }
+
+        stage('Enviar Correo desde Script Python') {
+            steps {
+                script {
+                    bat '''
+                        
+                        C:\\Users\\RSS-MSI\\AppData\\Local\\Programs\\Python\\Python312\\python.exe C:\\ProgramData\\Jenkins\\.jenkins\\workspace\\ACT_VO_PP\\PythonMail.py
+                    '''
+                }
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'Pipeline ejecutado exitosamente. ¡Construcción y copia de archivos exitosas!'
+        }
+        failure {
+            echo 'El pipeline ha fallado. Revisar los registros para mas detalles.'
+        }
+    }
+}
